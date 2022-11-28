@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package greeting;
+
+option java_package = "com.proto.greeting";
+option java_multiple_files = true;
+
+message GreetingRequest {
+  string first_name = 1;
+}
+message GreetingResponse {
+  string result = 1;
+}
+// So now we want to implement this rpc endpoint on the server side
+// Go check generated code to see what boilerplate code was made
+service GreetingService {
+  rpc greet(GreetingRequest) returns (GreetingResponse);
+  rpc greetManyTimes(GreetingRequest) returns (stream GreetingResponse);
+  rpc longGreet(stream GreetingRequest) returns (GreetingResponse);
+  rpc greetEveryone(stream GreetingRequest) returns(stream GreetingResponse);
+  rpc greetWithDeadline(GreetingRequest) returns (GreetingResponse);
+}

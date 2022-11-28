@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package calculator;
+
+option java_package = "com.proto.calculator";
+option java_multiple_files = true;
+
+import "calculator/sum.proto";
+import "calculator/prime.proto";
+import "calculator/avg.proto";
+import "calculator/max.proto";
+import "calculator/sqrt.proto";
+// So now we want to implement this rpc endpoint on the server side
+service CalculatorService {
+  rpc sum(sumRequest) returns (sumResponse);
+  rpc primes(PrimeRequest) returns (stream PrimeResponse);
+  rpc avg(stream AvgRequest) returns(AvgResponse);
+  rpc max(stream MaxRequest) returns (stream MaxResponse);
+//This function returns a Status.Invalid_argument if sqrtreq is negative
+  rpc sqrt(SqrtRequest) returns (SqrtResponse);
+}
